@@ -16,6 +16,7 @@
     "egg-bin": "^4",
     "egg-ci": "^2",
     "egg-mock": "^4",
+    "egg-mongoose": "^3.3.1",
     "eslint": "^8",
     "eslint-config-egg": "^12"
   },

@@ -23,6 +23,16 @@ module.exports = appInfo => {
     // myAppName: 'egg',
   };
 
+  config.mongoose = {
+    client: {
+      url: 'mongodb://admin:Abc123__@192.168.22.130:27017/admin',
+      options: {
+        useUnifiedTopology: true,
+      },
+      plugins: [],
+    },
+  };
+
   return {
     ...config,
     ...userConfig,
