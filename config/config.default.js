@@ -10,15 +10,13 @@ module.exports = appInfo => {
    * built-in config
    * @type {Egg.EggAppConfig}
    **/
-  const config = exports = {};
+  const config = (exports = {});
 
   // use for cookie sign key, should change to your own and keep security
   config.keys = appInfo.name + '_1656845345478_7597';
 
   // add your middleware config here
-  config.middleware = [
-    'errorHandler',
-  ];
+  config.middleware = [ 'errorHandler' ];
 
   // add your user config here
   const userConfig = {
@@ -39,6 +37,11 @@ module.exports = appInfo => {
     csrf: {
       enable: false,
     },
+  };
+
+  config.jwt = {
+    secret: 'ad78e432-50b9-401d-a60b-7ef4473e2756',
+    expiresIn: '1d',
   };
 
   return {
