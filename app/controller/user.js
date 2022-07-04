@@ -17,7 +17,7 @@ class UserController extends Controller {
       ctx.throw(422, '用戶已存在');
     }
     if (await userService.findByEmail(body.email)) {
-      ctx.throw(422, '用戶已存在');
+      ctx.throw(422, '邮箱已存在');
     }
     const user = await userService.createUser(body);
     ctx.body = {
@@ -57,6 +57,53 @@ class UserController extends Controller {
         channelDescription: user.channelDescription,
         avatar: user.avatar,
         token: await userService.createToken({ userId: user._id }),
+      },
+    };
+  }
+
+  async getCurrentUser() {
+    const { ctx } = this;
+    const { user } = ctx;
+    ctx.body = {
+      user: {
+        email: user.email,
+        username: user.username,
+        channelDescription: user.channelDescription,
+        avatar: user.avatar,
+        token: ctx.header.authorization,
+      },
+    };
+  }
+
+  async update() {
+    const { ctx } = this;
+    const body = ctx.request.body;
+    ctx.validate(
+      {
+        email: { type: 'email', required: false },
+        password: { type: 'string', required: false },
+        username: { type: 'string', required: false },
+        channelDescription: { type: 'string', required: false },
+        avatar: { type: 'string', required: false },
+      },
+      body
+    );
+    const userService = this.service.user;
+    const user = ctx.user;
+    if (body.username && body.username !== user.username && (await userService.findByUsername(body.username))) {
+      ctx.throw(422, '用戶已存在');
+    }
+    if (body.email && body.email !== user.email && (await userService.findByEmail(body.email))) {
+      ctx.throw(422, '邮箱已存在');
+    }
+    const newUser = await userService.updateUser(body);
+    ctx.body = {
+      user: {
+        email: newUser.email,
+        username: newUser.username,
+        channelDescription: newUser.channelDescription,
+        avatar: newUser.avatar,
+        password: newUser.password,
       },
     };
   }

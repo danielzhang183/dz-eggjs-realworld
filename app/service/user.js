@@ -27,6 +27,14 @@ class UserService extends Service {
     const { secret, expiresIn } = this.app.config.jwt;
     return jwt.sign({ userId }, secret, { expiresIn });
   }
+
+  verifyToken(token) {
+    return jwt.verify(token, this.app.config.jwt.secret);
+  }
+
+  updateUser(user) {
+    return this.User.findByIdAndUpdate(this.ctx.user._id, user, { new: true });
+  }
 }
 
 module.exports = UserService;
