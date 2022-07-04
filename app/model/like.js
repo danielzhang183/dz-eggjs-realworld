@@ -7,7 +7,7 @@ module.exports = app => {
     like: {
       // 点赞状态
       type: Number,
-      enum: [1, -1], // 喜欢 1，不喜欢 -1
+      enum: [ 1, -1 ], // 喜欢 1，不喜欢 -1
       required: true,
     },
     user: {
@@ -34,5 +34,5 @@ module.exports = app => {
     },
   });
 
-  return mongoose.model('VideoLike', likeSchema);
+  return mongoose.model('Like', likeSchema);
 };
