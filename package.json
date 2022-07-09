@@ -7,18 +7,18 @@
     "declarations": true
   },
   "dependencies": {
-    "egg": "^2",
-    "egg-scripts": "^2"
+    "egg": "^2.36.0",
+    "egg-scripts": "^2.17.0"
   },
   "devDependencies": {
-    "autod": "^3",
-    "autod-egg": "^1",
-    "egg-bin": "^4",
-    "egg-ci": "^2",
-    "egg-mock": "^4",
+    "autod": "^3.1.2",
+    "autod-egg": "^1.1.0",
+    "egg-bin": "^5.1.2",
+    "egg-ci": "^2.1.0",
+    "egg-mock": "^4.2.1",
     "egg-mongoose": "^3.3.1",
     "egg-validate": "^2.0.2",
-    "eslint": "^8",
+    "eslint": "^8.19.0",
     "eslint-config-egg": "^12",
     "jsonwebtoken": "^8.5.1"
   },
