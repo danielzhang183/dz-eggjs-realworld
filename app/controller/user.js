@@ -107,6 +107,91 @@ class UserController extends Controller {
       },
     };
   }
+
+  async subscribe() {
+    const { ctx, service } = this;
+    const userId = ctx.user._id;
+    const channelId = ctx.params.userId;
+    if (userId.equals(channelId)) { ctx.throw(422, '用户不能订阅自己'); }
+    const user = await service.user.subscribe(userId, channelId);
+    ctx.body = {
+      user: {
+        ...ctx.helper._.pick(user, [
+          'username',
+          'email',
+          'avatar',
+          'cover',
+          'channelDescription',
+          'subscribersCount',
+        ]),
+        isSubscribed: true,
+      },
+    };
+  }
+
+  async unsubscribe() {
+    const { ctx, service } = this;
+    const userId = ctx.user._id;
+    const channelId = ctx.params.userId;
+    if (userId.equals(channelId)) { ctx.throw(422, '用户不能订阅自己'); }
+    const user = await service.user.unsubscribe(userId, channelId);
+    ctx.body = {
+      user: {
+        ...ctx.helper._.pick(user, [
+          'username',
+          'email',
+          'avatar',
+          'cover',
+          'channelDescription',
+          'subscribersCount',
+        ]),
+        isSubscribed: false,
+      },
+    };
+  }
+
+  async getUser() {
+    const { ctx, app } = this;
+    let isSubscribed = false;
+    const channelId = ctx.params.userId;
+    if (ctx.user) {
+      const record = await app.model.Subscription.findOne({
+        user: ctx.user._id,
+        channel: channelId,
+      });
+      if (record) {
+        isSubscribed = true;
+      }
+    }
+    const user = await app.model.User.findById(channelId);
+    ctx.body = {
+      user: {
+        ...ctx.helper._.pick(user, [
+          'username',
+          'email',
+          'avatar',
+          'cover',
+          'channelDescription',
+          'subscribersCount',
+        ]),
+        isSubscribed,
+      },
+    };
+  }
+
+  async getSubscriptions() {
+    let subscriptions = await this.app.model.Subscription.find({
+      user: this.ctx.params.userId,
+    }).populate('channel');
+    subscriptions = subscriptions.map(item => this.ctx.helper._.pick(item.channel, [
+      '_id',
+      'username',
+      'avatar',
+    ]));
+    this.ctx.body = {
+      subscriptions,
+    };
+  }
 }
 
 module.exports = UserController;

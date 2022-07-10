@@ -12,4 +12,9 @@ module.exports = app => {
   router.post('/user/login', controller.user.login);
   router.get('/user', auth, controller.user.getCurrentUser);
   router.patch('/user', auth, controller.user.update);
+  router.get('/users/:userId', app.middleware.auth({ required: false }), controller.user.getUser);
+
+  router.post('/users/:userId/subscribe', auth, controller.user.subscribe);
+  router.delete('/users/:userId/subscribe', auth, controller.user.unsubscribe);
+  router.get('/users/:userId/subscriptions', controller.user.getSubscriptions);
 };

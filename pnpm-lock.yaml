@@ -13,6 +13,7 @@ specifiers:
   eslint: ^8.19.0
   eslint-config-egg: ^12
   jsonwebtoken: ^8.5.1
+  loadsh: ^0.0.4
 
 dependencies:
   egg: 2.36.0
@@ -29,6 +30,7 @@ devDependencies:
   eslint: 8.19.0
   eslint-config-egg: 12.0.0_4x5o4skxv6sl53vpwefgt23khm
   jsonwebtoken: 8.5.1
+  loadsh: 0.0.4
 
 packages:
 
@@ -5257,6 +5259,11 @@ packages:
       pify: 2.3.0
       pinkie-promise: 2.0.1
       strip-bom: 2.0.0
+    dev: true
+
+  /loadsh/0.0.4:
+    resolution: {integrity: sha512-U+wLL8InpfRalWrr+0SuhWgGt10M4OyAk6G8xCYo2rwpiHtxZkWiFpjei0vO463ghW8LPCdhqQxXlMy2qicAEw==}
+    deprecated: This is a typosquat on the popular Lodash package. This is not maintained nor is the original Lodash package.
     dev: true
 
   /locate-path/2.0.0:

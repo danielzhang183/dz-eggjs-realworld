@@ -35,6 +35,38 @@ class UserService extends Service {
   updateUser(user) {
     return this.User.findByIdAndUpdate(this.ctx.user._id, user, { new: true });
   }
+
+  async subscribe(userId, channelId) {
+    // check user already subscribe
+    const { Subscription, User } = this.app.model;
+    const record = await Subscription.findOne({
+      user: userId,
+      channel: channelId,
+    });
+    const user = await User.findById(channelId);
+    if (!record) {
+      await new Subscription({ user: userId, channel: channelId }).save();
+      user.subscribersCount++;
+      await user.save();
+    }
+    return user;
+  }
+
+  async unsubscribe(userId, channelId) {
+    // check user already subscribe
+    const { Subscription, User } = this.app.model;
+    const record = await Subscription.findOne({
+      user: userId,
+      channel: channelId,
+    });
+    const user = await User.findById(channelId);
+    if (record) {
+      await record.remove();
+      user.subscribersCount--;
+      await user.save();
+    }
+    return user;
+  }
 }
 
 module.exports = UserService;
