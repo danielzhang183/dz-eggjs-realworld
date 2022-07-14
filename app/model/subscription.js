@@ -3,25 +3,21 @@ module.exports = app => {
   const Schema = mongoose.Schema;
 
   const subscriptionSchema = new Schema({
-    user: {
-      // 订阅用户
+    user: { // 订阅用户
       type: mongoose.ObjectId,
       ref: 'User',
       required: true,
     },
-    channel: {
-      // 订阅频道
+    channel: { // 订阅频道
       type: mongoose.ObjectId,
       ref: 'User',
       required: true,
     },
-    createdAt: {
-      // 创建时间
+    createdAt: { // 创建时间
       type: Date,
       default: Date.now,
     },
-    updatedAt: {
-      // 更新时间
+    updatedAt: { // 更新时间
       type: Date,
       default: Date.now,
     },

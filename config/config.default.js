@@ -44,6 +44,11 @@ module.exports = appInfo => {
     expiresIn: '1d',
   };
 
+  config.cors = {
+    origin: '*', // 所有的网址都允许跨域请求
+    // {string|Array} allowMethods: 'GET,HEAD,PUT,POST,DELETE,PATCH'
+  };
+
   return {
     ...config,
     ...userConfig,
